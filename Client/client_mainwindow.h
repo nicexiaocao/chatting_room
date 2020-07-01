@@ -5,6 +5,10 @@
 #include <QDebug>
 #include <QtNetwork/qsctpsocket.h>
 #include <qlabel.h>
+#include <QTextCursor>
+#include <QKeyEvent>
+#include <qframe.h>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Client_MainWindow; }
@@ -19,6 +23,8 @@ public:
     Client_MainWindow(QWidget *parent = nullptr);
     ~Client_MainWindow();
 
+protected:
+	bool eventFilter(QObject *target, QEvent *event);//事件过滤器
 
 
 private:
@@ -40,7 +46,9 @@ private:
 
 	void on_btnSend_clicked(); //点击发送
 	void on_btnClear_clicked(); //点击清除
+	void movetoEnd();
 
 
 };
+
 #endif // CLIENT_MAINWINDOW_H

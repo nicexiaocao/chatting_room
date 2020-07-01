@@ -217,6 +217,10 @@ public:
         sizePolicy2.setHeightForWidth(display_message->sizePolicy().hasHeightForWidth());
         display_message->setSizePolicy(sizePolicy2);
         display_message->setMinimumSize(QSize(300, 192));
+        QFont font2;
+        font2.setPointSize(11);
+        display_message->setFont(font2);
+        display_message->setFocusPolicy(Qt::TabFocus);
         display_message->setFrameShape(QFrame::StyledPanel);
         display_message->setFrameShadow(QFrame::Raised);
         display_message->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -240,6 +244,8 @@ public:
         sizePolicy2.setHeightForWidth(send_text->sizePolicy().hasHeightForWidth());
         send_text->setSizePolicy(sizePolicy2);
         send_text->setMaximumSize(QSize(16777215, 100));
+        send_text->setFont(font2);
+        send_text->setFocusPolicy(Qt::TabFocus);
         send_text->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
         verticalLayout->addWidget(send_text);
@@ -262,6 +268,9 @@ public:
         btnClear->setObjectName(QString::fromUtf8("btnClear"));
         sizePolicy.setHeightForWidth(btnClear->sizePolicy().hasHeightForWidth());
         btnClear->setSizePolicy(sizePolicy);
+        QFont font3;
+        font3.setPointSize(10);
+        btnClear->setFont(font3);
 
         horizontalLayout_2->addWidget(btnClear);
 
@@ -273,6 +282,7 @@ public:
         btnSend->setObjectName(QString::fromUtf8("btnSend"));
         sizePolicy.setHeightForWidth(btnSend->sizePolicy().hasHeightForWidth());
         btnSend->setSizePolicy(sizePolicy);
+        btnSend->setFont(font3);
 
         horizontalLayout_2->addWidget(btnSend);
 
@@ -347,11 +357,14 @@ public:
         send_text->setHtml(QCoreApplication::translate("Client_MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\344\275\240\345\245\275</p></body></html>", nullptr));
+"</style></head><body style=\" font-family:'SimSun'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
         buttons->setTitle(QString());
         btnClear->setText(QCoreApplication::translate("Client_MainWindow", "\346\270\205\351\231\244", nullptr));
         btnSend->setText(QCoreApplication::translate("Client_MainWindow", "\345\217\221\351\200\201", nullptr));
+#if QT_CONFIG(shortcut)
+        btnSend->setShortcut(QCoreApplication::translate("Client_MainWindow", "Return", nullptr));
+#endif // QT_CONFIG(shortcut)
         menu_2->setTitle(QCoreApplication::translate("Client_MainWindow", "\345\216\206\345\217\262\346\266\210\346\201\257", nullptr));
         menu->setTitle(QCoreApplication::translate("Client_MainWindow", "\346\277\200\346\203\205\350\201\212\345\244\251", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("Client_MainWindow", "toolBar", nullptr));

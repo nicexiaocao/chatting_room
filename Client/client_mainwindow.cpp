@@ -4,6 +4,7 @@
 #include <QTextBlock>
 
 
+
 Client_MainWindow::Client_MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Client_MainWindow)
@@ -19,7 +20,11 @@ Client_MainWindow::Client_MainWindow(QWidget *parent)
 	palette.setBrush(QPalette::Window, QBrush(pixmap));
 	this->setPalette(palette);
 
+	ui->send_text->grabKeyboard();
 	connectedToHost = false;  // 初始化连接状态
+	ui->send_text->setFocusPolicy(Qt::StrongFocus); //使能按键响应
+	ui->send_text->setFocus();
+	ui->send_text->installEventFilter(this);
 
 	tcpClient = new QTcpSocket(this); //创建socket变量
 
@@ -39,6 +44,9 @@ Client_MainWindow::Client_MainWindow(QWidget *parent)
 
 	connect(ui->btnSend, &QAbstractButton::clicked, this, &Client_MainWindow::on_btnSend_clicked);
 	connect(ui->btnClear, &QAbstractButton::clicked, this, &Client_MainWindow::on_btnClear_clicked);
+
+	connect(ui->display_message, &QTextEdit::textChanged, this, &Client_MainWindow::movetoEnd);
+	
 
 }
 
@@ -105,18 +113,7 @@ void Client_MainWindow::on_btnSend_clicked()
 	QString id = ui->editName->text();
 	QTextDocument *doc = ui->send_text->document(); // 文本对象
 	int cnt = doc->blockCount(); // 回车符是一个block
-	
-	//for (int i = 0; i < cnt; i++)
-	//{
-	//	//显示自己发送的数据
-	//	QTextBlock textline = doc->findBlockByNumber(i);
-	//	QString message = textline.text();
-	//	if (i == 0)
-	//		printMessage(message.toUtf8() + "[" + id + "]");
-	//	else
-	//		printMessage(message.toUtf8());
-	//	ui->display_message->setAlignment(Qt::AlignRight); // 设置右对齐
-	//}
+
 
 	for (int i = 0; i < cnt; i++)
 	{
@@ -126,7 +123,7 @@ void Client_MainWindow::on_btnSend_clicked()
 		tcpClient->write("[" + id.toUtf8() + "]" + message_send.toUtf8() + "\n");
 	}
 
-	
+
 	ui->send_text->clear();
 	ui->send_text->setFocus();
 }
@@ -169,6 +166,34 @@ void Client_MainWindow::onSocketStateChange(QAbstractSocket::SocketState socketS
 	}
 }
 
+void Client_MainWindow::movetoEnd()
+{
+	//光标移动到最后
+	ui->display_message->moveCursor(QTextCursor::End);
+}
+
+
+bool Client_MainWindow::eventFilter(QObject *target, QEvent *event)
+{
+	if (target == ui->send_text)
+	{
+		if (event->type() == QEvent::KeyPress)//按键事件
+		{
+			QKeyEvent *k = static_cast<QKeyEvent *>(event);
+			if ((k->modifiers() == Qt::ControlModifier) && (k->key() == Qt::Key_Return))
+			{
+				ui->send_text->append("");
+				return true;
+			}
+			else if (k->key() == Qt::Key_Return)
+			{
+				this->on_btnSend_clicked();
+				return true;
+			}
+		}
+	}
+	return QWidget::eventFilter(target, event);
+}
 void Client_MainWindow::printMessage(QString message)
 {
 	ui->display_message->append(message);
