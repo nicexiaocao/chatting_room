@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>client_rsc/connect.png</file>
+        <file>client_rsc/disconnect.png</file>
+        <file>client_rsc/chat.png</file>
+        <file>client_rsc/background.png</file>
+    </qresource>
+</RCC>

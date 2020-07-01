@@ -1,0 +1,31 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1169
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{EAD04EE7-6F09-356E-AEB6-EF620564CF7F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Service", "Service\Service.vcxproj", "{47702AAC-C7D1-301B-A5A7-7132E682409D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EAD04EE7-6F09-356E-AEB6-EF620564CF7F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EAD04EE7-6F09-356E-AEB6-EF620564CF7F}.Debug|Win32.Build.0 = Debug|Win32
+		{EAD04EE7-6F09-356E-AEB6-EF620564CF7F}.Release|Win32.ActiveCfg = Release|Win32
+		{EAD04EE7-6F09-356E-AEB6-EF620564CF7F}.Release|Win32.Build.0 = Release|Win32
+		{47702AAC-C7D1-301B-A5A7-7132E682409D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{47702AAC-C7D1-301B-A5A7-7132E682409D}.Debug|Win32.Build.0 = Debug|Win32
+		{47702AAC-C7D1-301B-A5A7-7132E682409D}.Release|Win32.ActiveCfg = Release|Win32
+		{47702AAC-C7D1-301B-A5A7-7132E682409D}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		Qt5Version = msvc2017
+		SolutionGuid = {D7AFC400-87C1-468B-9ED2-A94A79AA76F6}
+	EndGlobalSection
+EndGlobal
