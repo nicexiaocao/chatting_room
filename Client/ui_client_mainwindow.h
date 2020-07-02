@@ -137,6 +137,7 @@ public:
         sizePolicy1.setHeightForWidth(ip_box->sizePolicy().hasHeightForWidth());
         ip_box->setSizePolicy(sizePolicy1);
         ip_box->setFont(font1);
+        ip_box->setFocusPolicy(Qt::ClickFocus);
         ip_box->setEditable(true);
 
         horizontalLayout->addWidget(ip_box);
@@ -157,6 +158,7 @@ public:
         Spinport->addItem(QString());
         Spinport->setObjectName(QString::fromUtf8("Spinport"));
         Spinport->setFont(font1);
+        Spinport->setFocusPolicy(Qt::ClickFocus);
         Spinport->setEditable(true);
 
         horizontalLayout->addWidget(Spinport);
@@ -171,6 +173,7 @@ public:
         editName = new QLineEdit(groupBox);
         editName->setObjectName(QString::fromUtf8("editName"));
         editName->setFont(font1);
+        editName->setFocusPolicy(Qt::ClickFocus);
 
         horizontalLayout->addWidget(editName);
 

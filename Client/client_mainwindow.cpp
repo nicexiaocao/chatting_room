@@ -20,11 +20,13 @@ Client_MainWindow::Client_MainWindow(QWidget *parent)
 	palette.setBrush(QPalette::Window, QBrush(pixmap));
 	this->setPalette(palette);
 
-	ui->send_text->grabKeyboard();
 	connectedToHost = false;  // 初始化连接状态
-	ui->send_text->setFocusPolicy(Qt::StrongFocus); //使能按键响应
+
+	
+	ui->send_text->setFocusPolicy(Qt::ClickFocus); //使能按键响应
 	ui->send_text->setFocus();
 	ui->send_text->installEventFilter(this);
+
 
 	tcpClient = new QTcpSocket(this); //创建socket变量
 
@@ -60,8 +62,8 @@ void Client_MainWindow::onConnected()
 {
 	//connected()信号槽函数
 	QString id = ui->editName->text();
-	printMessage(id + "成功连接服务器");
 	ui->display_message->setAlignment(Qt::AlignCenter);
+	printMessage(id + "成功连接服务器");
 	ui->actConnect->setEnabled(false);
 	ui->actDisconnect->setEnabled(true);
 
@@ -82,10 +84,22 @@ void Client_MainWindow::onDisconnected()
 void Client_MainWindow::onSocketReadyRead()
 {
 	// readyRead()信号槽函数 读取服务器信息
+	QString id = ui->editName->text();
+	QString msg_recived; 
 	while (tcpClient->canReadLine())
 	{
-		printMessage(tcpClient->readAll());
+		msg_recived = tcpClient->readAll();
+		if (msg_recived.contains("[" + id + "]", Qt::CaseSensitive))
+		{
+			ui->display_message->setAlignment(Qt::AlignRight);
+			msg_recived.remove("[" + id + "]", Qt::CaseSensitive);
+			printMessage(msg_recived);
+			continue;
+		}
 		ui->display_message->setAlignment(Qt::AlignLeft);
+		printMessage(msg_recived);
+		
+		
 	}
 }
 
@@ -120,7 +134,8 @@ void Client_MainWindow::on_btnSend_clicked()
 		//服务器发消息
 		QTextBlock textline = doc->findBlockByNumber(i);
 		QString message_send = textline.text();
-		tcpClient->write("[" + id.toUtf8() + "]" + message_send.toUtf8() + "\n");
+		if (message_send != "")
+			tcpClient->write("[" + id.toUtf8() + "]" + message_send.toUtf8() + "\n");
 	}
 
 
@@ -183,16 +198,20 @@ bool Client_MainWindow::eventFilter(QObject *target, QEvent *event)
 			if ((k->modifiers() == Qt::ControlModifier) && (k->key() == Qt::Key_Return))
 			{
 				ui->send_text->append("");
-				return true;
+				return true; //事件处理完毕
 			}
 			else if (k->key() == Qt::Key_Return)
 			{
 				this->on_btnSend_clicked();
 				return true;
 			}
+			else
+				return QMainWindow::eventFilter(target, event); //其他按键默认处理
 		}
+		
 	}
-	return QWidget::eventFilter(target, event);
+
+	return QMainWindow::eventFilter(target, event);  //其他目标默认处理
 }
 void Client_MainWindow::printMessage(QString message)
 {
