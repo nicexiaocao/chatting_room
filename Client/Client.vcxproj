@@ -57,7 +57,7 @@
     <IntDir>debug\</IntDir>
     <TargetName>Client</TargetName>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
-    <IncludePath>D:\Qt\Qt5.14.2\5.14.2\msvc2017\include\QtNetwork;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Qt\Qt5.14.2\5.14.2\msvc2017\include;D:\Qt\Qt5.14.2\5.14.2\msvc2017\include\QtNetwork;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>release\</OutDir>
@@ -161,6 +161,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <AdditionalDependencies>shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -242,8 +243,10 @@
     <None Include="client_rsc\disconnect.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="cpp.hint" />
     <None Include="项目需求.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
