@@ -17,15 +17,6 @@ public:
     void sendMessageToClients(QString message);
     void sendStatusToClients(QString messageToClient, QString ipAddress);
 
-    //为了便于理解使用名称取代数字标识符
-    const static int CONNECTDATABASEFAIL=0;
-    const static int OPERASUCCESS=1;
-    const static int SIGNINFLAG=1;
-    const static int SAMEUSRNAME=2;
-    const static int LOGINFAIL=2;
-    const static int LOGINFLAG=2;
-    const static int SENDMESSAGEFLAG=3;
-
 
 signals:
 

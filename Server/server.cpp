@@ -106,57 +106,53 @@ void Server::socketReadyRead()
     int port = client->peerPort();
     QString data = QString(client->readAll());
 
-    //收到的消息为 标识符:id/名字:密码/消息
+    //收到的消息为 标识符:名字:密码/消息
     QStringList list = data.split(":");
     qDebug() << "Message: " + data + " (" + socketIpAddress + ":" + QString::number(port) + ")";
-    QString signinflag=QString("%1").arg(SIGNINFLAG);
-    QString loginflag=QString("%1").arg(LOGINFLAG);
-    //QString signinflag=QString("%1").arg(SINGINFLAG);
+
     QString messageToClient;//传送给客户端的消息 格式 标识符:消息
     // redirect the message, just passing the message to all connected clients.
-    if(list[0]==signinflag){
-        //注册,返回id
+    if(list[0]==QString("sign")){
+        //注册
         //传来的数据：flag:name:password
-        QString usrid;
         QString usrname=list[1];
         QString password=list[2];
-        int status=CONNECTDATABASEFAIL;
+        QString status="CONNECTDATABASEFAIL";
         if(!sqlcon->startConnect()){
             //打开数据库失败
             qDebug()<<"cant open database";
         }
-        else if(!sqlcon->signIn(usrname,password,usrid)){
-            //重名了，发送一个标识 2
-            status=SAMEUSRNAME;
+        else if(!sqlcon->signIn(usrname,password)){
+            //重名了，发送一个标识
+            status="SAMNAMEERROR";
             messageToClient=QString("%1:重名").arg(status);
 
         }
         else{
-            status=OPERASUCCESS;//成功
-            messageToClient=QString("%1:%2:succeed").arg(status).arg(usrid);
+            status="SUCCEEDSIGNIN";//成功
+            messageToClient=QString("%1:succeed").arg(status);
         }
         sendStatusToClients(messageToClient, socketIpAddress);
 
-    }else if(list[0]==loginflag){
-        //登录，传来flag:id:name:password
-        QString usrid=list[1];
-        QString usrname=list[2];
-        QString password=list[3];
+    }else if(list[0]==QString("log")){
+        //登录，传来flag:ame:password
+        QString usrname=list[1];
+        QString password=list[2];
         //返回name，进入list
-        int status=CONNECTDATABASEFAIL;
+        QString status="CONNECTDATABASEFAIL";
         if(!sqlcon->startConnect()){
             //打开数据库失败
             qDebug()<<"cant open database";
         }
 
-        else if(!sqlcon->logIn(usrid,usrname,password)){
+        else if(!sqlcon->logIn(usrname,password)){
             //密码错误,或验证错误
             qDebug()<<"error password";
-            status=LOGINFAIL;
+            status="LOGINFAIL";
             messageToClient=QString("%1:密码或验证错误").arg(status);
         }else{
             qDebug()<<"success log in";
-            status=OPERASUCCESS;
+            status="SUCCEEDLOGIN";
             messageToClient=QString("%1:succeed").arg(status);
         }
         sendStatusToClients(messageToClient, socketIpAddress);

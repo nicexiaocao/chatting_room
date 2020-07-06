@@ -12,8 +12,8 @@ class SqlConnect:public QObject
 public:
     explicit SqlConnect(QObject *parent=nullptr);
     bool startConnect();
-    bool signIn(QString usrname,QString password,QString &usrid);
-    bool logIn(QString usrid,QString usrname,QString password);
+    bool signIn(QString usrname,QString password);
+    bool logIn(QString usrname,QString password);
 
 };
 
