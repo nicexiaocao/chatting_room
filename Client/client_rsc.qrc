@@ -4,5 +4,7 @@
         <file>client_rsc/disconnect.png</file>
         <file>client_rsc/chat.png</file>
         <file>client_rsc/background.png</file>
+        <file>client_rsc/login.png</file>
+        <file>client_rsc/login_icon.png</file>
     </qresource>
 </RCC>

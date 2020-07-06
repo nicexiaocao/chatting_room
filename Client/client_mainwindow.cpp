@@ -3,6 +3,7 @@
 #include "qdebug.h"
 #include <QTextBlock>
 
+extern login *dlg;
 
 
 Client_MainWindow::Client_MainWindow(QWidget *parent)
@@ -28,13 +29,15 @@ Client_MainWindow::Client_MainWindow(QWidget *parent)
 	ui->send_text->installEventFilter(this);
 
 
-	tcpClient = new QTcpSocket(this); //创建socket变量
+	//tcpClient = new QTcpSocket(this); //创建socket变量
+	tcpClient = (dlg->tcpClient);
 
 	LabSocketState = new QLabel("Socket状态：");//状态栏标签
 	LabSocketState->setMinimumWidth(250);
 	ui->statusbar->addWidget(LabSocketState);
 
-	// 建立信号和槽之间的联系
+
+	// 建立信号和槽之间的联系，省略好像不起效果，难顶
 	connect(tcpClient, &QTcpSocket::connected, this, &Client_MainWindow::onConnected);
 	connect(tcpClient, &QTcpSocket::disconnected, this, &Client_MainWindow::onDisconnected);
 
@@ -56,6 +59,8 @@ Client_MainWindow::Client_MainWindow(QWidget *parent)
 Client_MainWindow::~Client_MainWindow()
 {
     delete ui;
+	delete dlg;
+	
 }
 
 void Client_MainWindow::onConnected()

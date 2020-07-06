@@ -8,6 +8,8 @@
 #include <QTextCursor>
 #include <QKeyEvent>
 #include <qframe.h>
+#include "login.h"
+
 
 
 QT_BEGIN_NAMESPACE
@@ -22,6 +24,7 @@ class Client_MainWindow : public QMainWindow
 public:
     Client_MainWindow(QWidget *parent = nullptr);
     ~Client_MainWindow();
+	QTcpSocket *tcpClient;
 
 protected:
 	bool eventFilter(QObject *target, QEvent *event);//事件过滤器
@@ -29,9 +32,8 @@ protected:
 
 private:
 	Ui::Client_MainWindow* ui;
-	QTcpSocket *tcpClient;
 	QLabel  *LabSocketState;  //状态栏显示标签
-	bool            connectedToHost;
+	bool    connectedToHost;
 	void printMessage(QString message);
 
 	// 自定义槽函数
@@ -39,7 +41,7 @@ private:
 	void    onDisconnected(); //断开连接响应函数
 	void    onSocketStateChange(QAbstractSocket::SocketState socketState);
 	void    onSocketReadyRead();//读取socket传入的数据
-//
+
 	void on_actConnect_triggered(); //连接
 
 	void on_actDisconnect_triggered(); //断开连接

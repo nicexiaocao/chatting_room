@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>800</height>
+    <width>1178</width>
+    <height>773</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -497,7 +497,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1000</width>
+     <width>1178</width>
      <height>26</height>
     </rect>
    </property>

@@ -78,7 +78,7 @@ public:
     {
         if (Client_MainWindow->objectName().isEmpty())
             Client_MainWindow->setObjectName(QString::fromUtf8("Client_MainWindow"));
-        Client_MainWindow->resize(1000, 800);
+        Client_MainWindow->resize(1178, 773);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -329,7 +329,7 @@ public:
         Client_MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Client_MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1000, 26));
+        menubar->setGeometry(QRect(0, 0, 1178, 26));
         menu_2 = new QMenu(menubar);
         menu_2->setObjectName(QString::fromUtf8("menu_2"));
         menu = new QMenu(menubar);
