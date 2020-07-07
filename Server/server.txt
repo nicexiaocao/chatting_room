@@ -1,0 +1,64 @@
+头文件
+server.h
+负责建立TCP连接
+Sqlconnect.h
+与数据库进行操作
+
+Cpp文件
+	Server.cpp
+	槽函数：
+	void newClientConnection();
+    void socketDisconnected(); 
+void socketReadyRead(); //接收客户端的信息，格式 
+//标识符|id/name|password
+void socketStateChanged(QAbstractSocket::SocketState state);
+
+sqlconnect.cpp
+public函数：
+bool startConnect();//建立数据库连接
+
+bool signIn(QString usrname,QString password,QString &usrid);
+//注册功能，用户只需使用用户名和密码即可注册，返回系统分配的id
+//例：2020000
+//接收格式 sign:name:password
+//当有重名或者执行语句失败的时候返回false
+//usrid按照顺序自动分配，并发回给客户端处理
+//发给客户端的status
+//"CONNECTDATABASEFAIL"服务端打开数据库失败，
+//"SUCCEEDSIGNIN"成功，
+//"SAMNAMEERROR"重名
+
+bool logIn(QString usrid,QString password);
+//登录功能，用户需提供用户名和密码
+//接收格式 2:name:password
+//login主要有两方面功能，一个是登录界面使用id和密码
+//二是进入聊天室的时候使用id和用户名，看用户名有没有出错
+//当登录失败返回false
+//发给客户端的status 
+//"CONNECTDATABASEFAIL"服务端打开数据库失败
+//"SUCCEEDLOGIN"为成功登录/验证用户名，
+//"LOGINFAIL"为密码错误或用户名错误
+//在聊天室内发送消息的格式 3:name:message
+
+
+需要客户端的动作
+传送格式
+注册		sign:name:password
+登录		log:name:password
+传送消息	send:name:message
+断开连接	send:name
+
+返回客户端的信息：
+	服务端失败	CONNECTDATABASEFAIL:服务端出错
+	注册失败	SAMNAMEERROR:重名
+	注册成功	SUCCEEDSIGNIN:succeed
+	登录失败	LOGINFAIL:密码或验证错误
+	登陆成功	SUCCEEDLOGIN:succeed
+	群发消息	name:message
+
+问题：
+1、	没有修改用户名，注销用户功能
+2、	注销后用户的id不能回收
+3、	注册插入数据库的时候有警告提示
+4、	没有连接上的时候点其他按钮会卡死
+5、	。。。。

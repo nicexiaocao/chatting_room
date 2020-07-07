@@ -55,6 +55,9 @@
       <Extensions>*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="Other Files">
+      <UniqueIdentifier>{da492c61-d2ac-4bb5-a465-f33c2ce61d7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="client_mainwindow.cpp">
@@ -79,23 +82,15 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    
-    
-    
-    
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="release\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
-    
-    
     <ClCompile Include="stdafx.h.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    
-    
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="client_mainwindow.ui">
@@ -132,5 +127,10 @@
     <None Include="项目需求.txt">
       <Filter>Distribution Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Client.txt">
+      <Filter>Other Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

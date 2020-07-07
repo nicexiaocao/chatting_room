@@ -2,7 +2,7 @@
 #include "login.h"
 #include <QApplication>
 
-login *dlg; // 给主窗口调用
+login *dlg;
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +16,4 @@ int main(int argc, char *argv[])
 	}
 	else
 		return 0;
-
-
 }

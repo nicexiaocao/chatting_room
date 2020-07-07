@@ -1,4 +1,4 @@
-#include "server.h"
+﻿#include "server.h"
 #include"sqlconnect.h"
 Server::Server(QObject *parent) : QObject(parent)
 {
@@ -124,7 +124,7 @@ void Server::socketReadyRead()
         }
         else if(!sqlcon->signIn(usrname,password)){
             //重名了，发送一个标识
-            status="SAMNAMEERROR";
+            status="SAMENAMEERROR";
             messageToClient=QString("%1:重名").arg(status);
 
         }

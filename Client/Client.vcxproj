@@ -68,6 +68,7 @@
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <QtInstall>msvc2017</QtInstall>
     <QtModules>core;network;gui;widgets</QtModules>
+    <QtQMLDebugEnable>false</QtQMLDebugEnable>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <QtInstall>msvc2017</QtInstall>
@@ -333,6 +334,9 @@ echo #include "stdafx.h"&gt;&gt;stdafx.h.cpp</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="项目需求.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Client.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -1,4 +1,4 @@
-#include"sqlconnect.h"
+﻿#include"sqlconnect.h"
 SqlConnect::SqlConnect(QObject *parent):QObject(parent)
 {
 

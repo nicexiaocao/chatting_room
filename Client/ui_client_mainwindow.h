@@ -13,7 +13,6 @@
 #include <QtGui/QIcon>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -43,17 +42,12 @@ public:
     QVBoxLayout *verticalLayout_2;
     QWidget *widget;
     QHBoxLayout *horizontalLayout;
-    QLabel *ip_label;
-    QComboBox *ip_box;
-    QLabel *ip_label_2;
-    QComboBox *Spinport;
     QLabel *label;
     QLineEdit *editName;
     QLabel *label_onlie;
     QLineEdit *lineEdit;
     QSpacerItem *horizontalSpacer_2;
-    QSpacerItem *horizontalSpacer_5;
-    QWidget *widget1;
+    QWidget *widget_1;
     QHBoxLayout *horizontalLayout_3;
     QListView *listView;
     QWidget *widget_3;
@@ -78,8 +72,8 @@ public:
     {
         if (Client_MainWindow->objectName().isEmpty())
             Client_MainWindow->setObjectName(QString::fromUtf8("Client_MainWindow"));
-        Client_MainWindow->resize(1276, 772);
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        Client_MainWindow->resize(982, 772);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(Client_MainWindow->sizePolicy().hasHeightForWidth());
@@ -117,7 +111,9 @@ public:
 "border-radius: 5px;background-color:rgb(161, 187, 215);\n"
 "}\n"
 "*{font: 11pt \"Microsoft YaHei UI\";}\n"
-"QGroupBox{border:none}"));
+"QGroupBox{border:none}\n"
+"#display_message{background-color:rgba(255, 255, 255, 200)}\n"
+"#listView{background-color:rgba(255, 255, 255, 200)}"));
         verticalLayout_2 = new QVBoxLayout(centralwidget);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         widget = new QWidget(centralwidget);
@@ -125,61 +121,14 @@ public:
         horizontalLayout = new QHBoxLayout(widget);
         horizontalLayout->setSpacing(20);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        ip_label = new QLabel(widget);
-        ip_label->setObjectName(QString::fromUtf8("ip_label"));
-        ip_label->setEnabled(true);
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(ip_label->sizePolicy().hasHeightForWidth());
-        ip_label->setSizePolicy(sizePolicy1);
-        ip_label->setMinimumSize(QSize(115, 0));
+        label = new QLabel(widget);
+        label->setObjectName(QString::fromUtf8("label"));
         QFont font1;
         font1.setFamily(QString::fromUtf8("Microsoft YaHei UI"));
         font1.setPointSize(11);
         font1.setBold(false);
         font1.setItalic(false);
         font1.setWeight(50);
-        ip_label->setFont(font1);
-        ip_label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        ip_label->setWordWrap(true);
-
-        horizontalLayout->addWidget(ip_label);
-
-        ip_box = new QComboBox(widget);
-        ip_box->addItem(QString());
-        ip_box->addItem(QString());
-        ip_box->setObjectName(QString::fromUtf8("ip_box"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(ip_box->sizePolicy().hasHeightForWidth());
-        ip_box->setSizePolicy(sizePolicy2);
-        ip_box->setFont(font1);
-        ip_box->setFocusPolicy(Qt::ClickFocus);
-        ip_box->setEditable(true);
-
-        horizontalLayout->addWidget(ip_box);
-
-        ip_label_2 = new QLabel(widget);
-        ip_label_2->setObjectName(QString::fromUtf8("ip_label_2"));
-        ip_label_2->setFont(font1);
-        ip_label_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        horizontalLayout->addWidget(ip_label_2);
-
-        Spinport = new QComboBox(widget);
-        Spinport->addItem(QString());
-        Spinport->addItem(QString());
-        Spinport->setObjectName(QString::fromUtf8("Spinport"));
-        Spinport->setFont(font1);
-        Spinport->setFocusPolicy(Qt::ClickFocus);
-        Spinport->setEditable(true);
-
-        horizontalLayout->addWidget(Spinport);
-
-        label = new QLabel(widget);
-        label->setObjectName(QString::fromUtf8("label"));
         label->setFont(font1);
         label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
@@ -187,11 +136,11 @@ public:
 
         editName = new QLineEdit(widget);
         editName->setObjectName(QString::fromUtf8("editName"));
-        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(editName->sizePolicy().hasHeightForWidth());
-        editName->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(editName->sizePolicy().hasHeightForWidth());
+        editName->setSizePolicy(sizePolicy1);
         editName->setFont(font1);
         editName->setFocusPolicy(Qt::ClickFocus);
 
@@ -205,6 +154,13 @@ public:
 
         lineEdit = new QLineEdit(widget);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
+        lineEdit->setSizePolicy(sizePolicy2);
+        lineEdit->setMinimumSize(QSize(20, 0));
+        lineEdit->setMaximumSize(QSize(60, 16777215));
         lineEdit->setReadOnly(true);
 
         horizontalLayout->addWidget(lineEdit);
@@ -213,31 +169,24 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer_2);
 
-        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_5);
-
 
         verticalLayout_2->addWidget(widget);
 
-        widget1 = new QWidget(centralwidget);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(widget1->sizePolicy().hasHeightForWidth());
-        widget1->setSizePolicy(sizePolicy4);
-        widget1->setMinimumSize(QSize(960, 600));
-        horizontalLayout_3 = new QHBoxLayout(widget1);
+        widget_1 = new QWidget(centralwidget);
+        widget_1->setObjectName(QString::fromUtf8("widget_1"));
+        sizePolicy.setHeightForWidth(widget_1->sizePolicy().hasHeightForWidth());
+        widget_1->setSizePolicy(sizePolicy);
+        widget_1->setMinimumSize(QSize(960, 600));
+        horizontalLayout_3 = new QHBoxLayout(widget_1);
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
-        listView = new QListView(widget1);
+        listView = new QListView(widget_1);
         listView->setObjectName(QString::fromUtf8("listView"));
         listView->setEnabled(true);
-        QSizePolicy sizePolicy5(QSizePolicy::Fixed, QSizePolicy::Expanding);
-        sizePolicy5.setHorizontalStretch(0);
-        sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(listView->sizePolicy().hasHeightForWidth());
-        listView->setSizePolicy(sizePolicy5);
+        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Expanding);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(listView->sizePolicy().hasHeightForWidth());
+        listView->setSizePolicy(sizePolicy3);
         listView->setMinimumSize(QSize(40, 300));
         listView->setFont(font1);
         listView->setContextMenuPolicy(Qt::DefaultContextMenu);
@@ -245,7 +194,7 @@ public:
 
         horizontalLayout_3->addWidget(listView);
 
-        widget_3 = new QWidget(widget1);
+        widget_3 = new QWidget(widget_1);
         widget_3->setObjectName(QString::fromUtf8("widget_3"));
         verticalLayout_3 = new QVBoxLayout(widget_3);
         verticalLayout_3->setSpacing(7);
@@ -255,20 +204,12 @@ public:
         display_message = new QTextEdit(widget_3);
         display_message->setObjectName(QString::fromUtf8("display_message"));
         display_message->setEnabled(true);
-        sizePolicy4.setHeightForWidth(display_message->sizePolicy().hasHeightForWidth());
-        display_message->setSizePolicy(sizePolicy4);
+        sizePolicy.setHeightForWidth(display_message->sizePolicy().hasHeightForWidth());
+        display_message->setSizePolicy(sizePolicy);
         display_message->setMinimumSize(QSize(300, 192));
-        QFont font2;
-        font2.setFamily(QString::fromUtf8("Microsoft YaHei UI"));
-        font2.setPointSize(12);
-        font2.setBold(false);
-        font2.setItalic(false);
-        font2.setWeight(50);
-        display_message->setFont(font2);
+        display_message->setFont(font1);
         display_message->setFocusPolicy(Qt::TabFocus);
-        display_message->setStyleSheet(QString::fromUtf8("#Client_MainWindow{background-image:url(:/icon/client_rsc/background.png)}\n"
-"*{font: 12pt \"Microsoft YaHei UI\";}\n"
-""));
+        display_message->setStyleSheet(QString::fromUtf8(""));
         display_message->setFrameShape(QFrame::StyledPanel);
         display_message->setFrameShadow(QFrame::Raised);
         display_message->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -277,8 +218,8 @@ public:
 
         widget_2 = new QWidget(widget_3);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
-        sizePolicy3.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
-        widget_2->setSizePolicy(sizePolicy3);
+        sizePolicy1.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
+        widget_2->setSizePolicy(sizePolicy1);
         verticalLayout = new QVBoxLayout(widget_2);
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
@@ -286,8 +227,8 @@ public:
         send_text = new QTextEdit(widget_2);
         send_text->setObjectName(QString::fromUtf8("send_text"));
         send_text->setEnabled(true);
-        sizePolicy4.setHeightForWidth(send_text->sizePolicy().hasHeightForWidth());
-        send_text->setSizePolicy(sizePolicy4);
+        sizePolicy.setHeightForWidth(send_text->sizePolicy().hasHeightForWidth());
+        send_text->setSizePolicy(sizePolicy);
         send_text->setMaximumSize(QSize(16777215, 100));
         send_text->setFont(font1);
         send_text->setFocusPolicy(Qt::TabFocus);
@@ -297,11 +238,11 @@ public:
 
         buttons = new QGroupBox(widget_2);
         buttons->setObjectName(QString::fromUtf8("buttons"));
-        QSizePolicy sizePolicy6(QSizePolicy::Ignored, QSizePolicy::Fixed);
-        sizePolicy6.setHorizontalStretch(0);
-        sizePolicy6.setVerticalStretch(0);
-        sizePolicy6.setHeightForWidth(buttons->sizePolicy().hasHeightForWidth());
-        buttons->setSizePolicy(sizePolicy6);
+        QSizePolicy sizePolicy4(QSizePolicy::Ignored, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(buttons->sizePolicy().hasHeightForWidth());
+        buttons->setSizePolicy(sizePolicy4);
         buttons->setStyleSheet(QString::fromUtf8(""));
         horizontalLayout_2 = new QHBoxLayout(buttons);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
@@ -312,8 +253,8 @@ public:
 
         btnClear = new QPushButton(buttons);
         btnClear->setObjectName(QString::fromUtf8("btnClear"));
-        sizePolicy.setHeightForWidth(btnClear->sizePolicy().hasHeightForWidth());
-        btnClear->setSizePolicy(sizePolicy);
+        sizePolicy2.setHeightForWidth(btnClear->sizePolicy().hasHeightForWidth());
+        btnClear->setSizePolicy(sizePolicy2);
         btnClear->setMinimumSize(QSize(70, 0));
         btnClear->setFont(font1);
 
@@ -325,8 +266,8 @@ public:
 
         btnSend = new QPushButton(buttons);
         btnSend->setObjectName(QString::fromUtf8("btnSend"));
-        sizePolicy.setHeightForWidth(btnSend->sizePolicy().hasHeightForWidth());
-        btnSend->setSizePolicy(sizePolicy);
+        sizePolicy2.setHeightForWidth(btnSend->sizePolicy().hasHeightForWidth());
+        btnSend->setSizePolicy(sizePolicy2);
         btnSend->setMinimumSize(QSize(70, 0));
         btnSend->setFont(font1);
 
@@ -342,12 +283,12 @@ public:
         horizontalLayout_3->addWidget(widget_3);
 
 
-        verticalLayout_2->addWidget(widget1);
+        verticalLayout_2->addWidget(widget_1);
 
         Client_MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Client_MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1276, 26));
+        menubar->setGeometry(QRect(0, 0, 982, 26));
         menu_2 = new QMenu(menubar);
         menu_2->setObjectName(QString::fromUtf8("menu_2"));
         menu = new QMenu(menubar);
@@ -355,13 +296,14 @@ public:
         Client_MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(Client_MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
-        sizePolicy3.setHeightForWidth(statusbar->sizePolicy().hasHeightForWidth());
-        statusbar->setSizePolicy(sizePolicy3);
+        sizePolicy1.setHeightForWidth(statusbar->sizePolicy().hasHeightForWidth());
+        statusbar->setSizePolicy(sizePolicy1);
         Client_MainWindow->setStatusBar(statusbar);
         toolBar = new QToolBar(Client_MainWindow);
         toolBar->setObjectName(QString::fromUtf8("toolBar"));
         toolBar->setFont(font);
         toolBar->setAllowedAreas(Qt::TopToolBarArea);
+        toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         Client_MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
 
         menubar->addAction(menu->menuAction());
@@ -389,14 +331,6 @@ public:
 #if QT_CONFIG(tooltip)
         actDisconnect->setToolTip(QCoreApplication::translate("Client_MainWindow", "\346\226\255\345\274\200TCP\351\223\276\346\216\245", nullptr));
 #endif // QT_CONFIG(tooltip)
-        ip_label->setText(QCoreApplication::translate("Client_MainWindow", "\346\234\215\345\212\241\345\231\250\345\234\260\345\235\200\357\274\232", nullptr));
-        ip_box->setItemText(0, QCoreApplication::translate("Client_MainWindow", "118.89.192.223", nullptr));
-        ip_box->setItemText(1, QCoreApplication::translate("Client_MainWindow", "192.168.1.1", nullptr));
-
-        ip_label_2->setText(QCoreApplication::translate("Client_MainWindow", "\347\253\257\345\217\243\357\274\232", nullptr));
-        Spinport->setItemText(0, QCoreApplication::translate("Client_MainWindow", "8001", nullptr));
-        Spinport->setItemText(1, QCoreApplication::translate("Client_MainWindow", "3306", nullptr));
-
         label->setText(QCoreApplication::translate("Client_MainWindow", "\346\230\265\347\247\260\357\274\232", nullptr));
         editName->setText(QCoreApplication::translate("Client_MainWindow", "xiaocao", nullptr));
         label_onlie->setText(QCoreApplication::translate("Client_MainWindow", "\345\234\250\347\272\277\344\272\272\346\225\260:", nullptr));

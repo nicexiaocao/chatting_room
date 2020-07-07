@@ -3,29 +3,27 @@
 #include "qdebug.h"
 #include <QTextBlock>
 
-extern login *dlg;
-
+extern login* dlg;
 
 Client_MainWindow::Client_MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::Client_MainWindow)
+    : QMainWindow(parent), ui(new Ui::Client_MainWindow)
 {
-	
 	ui->setupUi(this);
 
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon); //设置工具栏显示文字和图标
 
 	connectedToHost = false;  // 初始化连接状态
+	ui->actConnect->setEnabled(false); //进入时已经连接成功
 
 	
 	ui->send_text->setFocusPolicy(Qt::ClickFocus); //使能按键响应
 	ui->send_text->setFocus();
 	ui->send_text->installEventFilter(this);
 
-
-	//tcpClient = new QTcpSocket(this); //创建socket变量
-	tcpClient = (dlg->tcpClient);
-
+	dlg->tcpClient->disconnectFromHost(); //断开登录窗口的连接
+	tcpClient = new QTcpSocket(this); //创建socket变量
+	tcpClient->connectToHost(serverIp, serverPort);
+	
 	LabSocketState = new QLabel("Socket状态：");//状态栏标签
 	LabSocketState->setMinimumWidth(250);
 	ui->statusbar->addWidget(LabSocketState);
@@ -45,15 +43,13 @@ Client_MainWindow::Client_MainWindow(QWidget *parent)
 	connect(ui->btnClear, &QAbstractButton::clicked, this, &Client_MainWindow::on_btnClear_clicked);
 
 	connect(ui->display_message, &QTextEdit::textChanged, this, &Client_MainWindow::movetoEnd);
-	
-
+	connect(dlg, &login::sendData, this, &Client_MainWindow::receiveData);
 }
 
 
 Client_MainWindow::~Client_MainWindow()
 {
     delete ui;
-	delete dlg;
 	
 }
 
@@ -65,9 +61,6 @@ void Client_MainWindow::onConnected()
 	printMessage(id + "成功连接服务器");
 	ui->actConnect->setEnabled(false);
 	ui->actDisconnect->setEnabled(true);
-
-	//发送到服务器信息
-	tcpClient->write(id.toUtf8() + " has joined the chat room." + "\n");
 }
 
 void Client_MainWindow::onDisconnected()
@@ -84,38 +77,48 @@ void Client_MainWindow::onSocketReadyRead()
 {
 	// readyRead()信号槽函数 读取服务器信息
 	QString id = ui->editName->text();
-	QString msg_recived; 
-	while (tcpClient->canReadLine())
+	QString Message_received = tcpClient->readAll();
+	QStringList Message_list; 
+
+	while (tcpClient->bytesAvailable())
 	{
-		msg_recived = tcpClient->readAll();
-		if (msg_recived.contains("[" + id + "]", Qt::CaseSensitive))
+		Message_received = tcpClient->readAll();
+		qDebug() << Message_received;
+		Message_list = Message_received.split(":");
+		qDebug() << Message_list[0];
+		
+		if (Message_list[0] == id)
 		{
 			ui->display_message->setAlignment(Qt::AlignRight);
-			msg_recived.remove("[" + id + "]", Qt::CaseSensitive);
-			printMessage(msg_recived);
-			continue;
+			printMessage(Message_list[1]);
 		}
-		ui->display_message->setAlignment(Qt::AlignLeft);
-		printMessage(msg_recived);
-		
-		
+		else
+		{
+			ui->display_message->setAlignment(Qt::AlignLeft);
+			printMessage(Message_received);
+		}
 	}
 }
 
 void Client_MainWindow::on_actConnect_triggered()
 {
 	//连接到服务器
-	QString     addr = ui->ip_box->currentText();
-	QString     str = ui->Spinport->currentText();
-	qint16		port = str.toInt();
-	tcpClient->connectToHost(addr, port);
+	QString id = ui->editName->text();
+	tcpClient->connectToHost(serverIp, serverPort);
+	QString LogMessage = LOG + id + ":" + password;
+	tcpClient->write(LogMessage.toUtf8());
 }
 
 void Client_MainWindow::on_actDisconnect_triggered()
 {
 	//断开连接
+	QString id = ui->editName->text();
 	if (tcpClient->state() == QAbstractSocket::ConnectedState)
+	{
+		tcpClient->write(id.toUtf8()); // 直接发送用户名字作为下线指令
 		tcpClient->disconnectFromHost();
+	}
+		
 }
 
 void Client_MainWindow::on_btnSend_clicked()
@@ -134,9 +137,8 @@ void Client_MainWindow::on_btnSend_clicked()
 		QTextBlock textline = doc->findBlockByNumber(i);
 		QString message_send = textline.text();
 		if (message_send != "")
-			tcpClient->write("[" + id.toUtf8() + "]" + message_send.toUtf8() + "\n");
+			tcpClient->write(SEND + id.toUtf8() + ":" + message_send.toUtf8() + "\n");
 	}
-
 
 	ui->send_text->clear();
 	ui->send_text->setFocus();
@@ -184,6 +186,13 @@ void Client_MainWindow::movetoEnd()
 {
 	//光标移动到最后
 	ui->display_message->moveCursor(QTextCursor::End);
+}
+
+void Client_MainWindow::receiveData(QString data, QString data2)
+{
+	ui->editName->setText(data);
+	this->password = data2;
+	qDebug() << password;
 }
 
 
