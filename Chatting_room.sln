@@ -4,7 +4,7 @@ VisualStudioVersion = 15.0.28307.1169
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{EAD04EE7-6F09-356E-AEB6-EF620564CF7F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Service", "Service\Service.vcxproj", "{47702AAC-C7D1-301B-A5A7-7132E682409D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "Server\Server.vcxproj", "{B2F59B48-5A52-3568-ACE5-8EE0FC01EB5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,16 +16,16 @@ Global
 		{EAD04EE7-6F09-356E-AEB6-EF620564CF7F}.Debug|Win32.Build.0 = Debug|Win32
 		{EAD04EE7-6F09-356E-AEB6-EF620564CF7F}.Release|Win32.ActiveCfg = Release|Win32
 		{EAD04EE7-6F09-356E-AEB6-EF620564CF7F}.Release|Win32.Build.0 = Release|Win32
-		{47702AAC-C7D1-301B-A5A7-7132E682409D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{47702AAC-C7D1-301B-A5A7-7132E682409D}.Debug|Win32.Build.0 = Debug|Win32
-		{47702AAC-C7D1-301B-A5A7-7132E682409D}.Release|Win32.ActiveCfg = Release|Win32
-		{47702AAC-C7D1-301B-A5A7-7132E682409D}.Release|Win32.Build.0 = Release|Win32
+		{B2F59B48-5A52-3568-ACE5-8EE0FC01EB5D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B2F59B48-5A52-3568-ACE5-8EE0FC01EB5D}.Debug|Win32.Build.0 = Debug|Win32
+		{B2F59B48-5A52-3568-ACE5-8EE0FC01EB5D}.Release|Win32.ActiveCfg = Release|Win32
+		{B2F59B48-5A52-3568-ACE5-8EE0FC01EB5D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		Qt5Version = msvc2017
 		SolutionGuid = {5B086F2F-EE47-43AC-803E-805D4FD23CB6}
+		Qt5Version = msvc2017
 	EndGlobalSection
 EndGlobal

@@ -1,6 +1,11 @@
 ﻿#include "login.h"
 #include "ui_login.h"
 
+//表示使用的宏
+#define SIGN  "sign:"
+#define LOG   "log:"
+#define SEND  "send:"
+
 login::login(QWidget *parent): QDialog(parent), ui(new Ui::login)
 {
 	
@@ -27,12 +32,12 @@ login::~login()
 
 void login::on_btnEnter_clicked()
 {
-	
+	this->accept();
 	tcpClient->connectToHost(ip, port);
 	QString id = ui->idEdit->text();
 	QString password = ui->passEdit->text();
-	QString RegMessage = "[Login][" + id + "]" + "[" + password + "]";
-	tcpClient->write(RegMessage.toUtf8());
+	QString LogMessage = LOG + id +":" +  password;
+	tcpClient->write(LogMessage.toUtf8());
 }
 
 void login::on_btnRegister_clicked()
@@ -40,7 +45,7 @@ void login::on_btnRegister_clicked()
 	tcpClient->connectToHost(ip, port);
 	QString id = ui->idEdit->text();
 	QString password = ui->passEdit->text();
-	QString RegMessage = "[Register][" + id + "]" + "[" + password + "]";
+	QString RegMessage = SIGN + id + ":" + password;
 	tcpClient->write(RegMessage.toUtf8());
 }
 void login::on_btnCancel_clicked()

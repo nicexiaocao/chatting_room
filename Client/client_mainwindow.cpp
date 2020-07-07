@@ -15,12 +15,6 @@ Client_MainWindow::Client_MainWindow(QWidget *parent)
 
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon); //设置工具栏显示文字和图标
 
-	//设置背景颜色
-	QPalette palette;
-	QPixmap pixmap(":/icon/client_rsc/background.png");
-	palette.setBrush(QPalette::Window, QBrush(pixmap));
-	this->setPalette(palette);
-
 	connectedToHost = false;  // 初始化连接状态
 
 	

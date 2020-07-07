@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1178</width>
-    <height>773</height>
+    <width>1276</width>
+    <height>772</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -23,13 +23,21 @@
    <iconset resource="client_rsc.qrc">
     <normaloff>:/icon/client_rsc/chat.png</normaloff>:/icon/client_rsc/chat.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">#centralwidget{border-image:url(:/icon/client_rsc/background.png)}
+QPushButton{border: 2px groove gray;
+border-radius: 5px;background-color:rgb(161, 187, 215);
+}
+*{font: 11pt &quot;Microsoft YaHei UI&quot;;}
+QGroupBox{border:none}</string>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QGroupBox" name="groupBox">
-      <property name="title">
-       <string/>
-      </property>
+     <widget class="QWidget" name="widget" native="true">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="spacing">
         <number>20</number>
@@ -40,7 +48,7 @@
           <bool>true</bool>
          </property>
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -53,8 +61,11 @@
          </property>
          <property name="font">
           <font>
-           <family>微软雅黑</family>
-           <pointsize>10</pointsize>
+           <family>Microsoft YaHei UI</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
@@ -78,8 +89,11 @@
          </property>
          <property name="font">
           <font>
-           <family>微软雅黑</family>
-           <pointsize>10</pointsize>
+           <family>Microsoft YaHei UI</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="focusPolicy">
@@ -104,8 +118,11 @@
         <widget class="QLabel" name="ip_label_2">
          <property name="font">
           <font>
-           <family>微软雅黑</family>
-           <pointsize>10</pointsize>
+           <family>Microsoft YaHei UI</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
@@ -120,8 +137,11 @@
         <widget class="QComboBox" name="Spinport">
          <property name="font">
           <font>
-           <family>微软雅黑</family>
-           <pointsize>10</pointsize>
+           <family>Microsoft YaHei UI</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="focusPolicy">
@@ -146,8 +166,11 @@
         <widget class="QLabel" name="label">
          <property name="font">
           <font>
-           <family>微软雅黑</family>
-           <pointsize>10</pointsize>
+           <family>Microsoft YaHei UI</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
@@ -168,8 +191,11 @@
          </property>
          <property name="font">
           <font>
-           <family>微软雅黑</family>
-           <pointsize>10</pointsize>
+           <family>Microsoft YaHei UI</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="focusPolicy">
@@ -184,8 +210,11 @@
         <widget class="QLabel" name="label_onlie">
          <property name="font">
           <font>
-           <family>微软雅黑</family>
-           <pointsize>10</pointsize>
+           <family>Microsoft YaHei UI</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
@@ -199,19 +228,6 @@
           <bool>true</bool>
          </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item>
         <spacer name="horizontalSpacer_2">
@@ -263,7 +279,11 @@
          </property>
          <property name="font">
           <font>
-           <pointsize>10</pointsize>
+           <family>Microsoft YaHei UI</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="contextMenuPolicy">
@@ -314,11 +334,20 @@
             </property>
             <property name="font">
              <font>
-              <pointsize>11</pointsize>
+              <family>Microsoft YaHei UI</family>
+              <pointsize>12</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
              </font>
             </property>
             <property name="focusPolicy">
              <enum>Qt::TabFocus</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#Client_MainWindow{background-image:url(:/icon/client_rsc/background.png)}
+*{font: 12pt &quot;Microsoft YaHei UI&quot;;}
+</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -374,7 +403,11 @@
                </property>
                <property name="font">
                 <font>
+                 <family>Microsoft YaHei UI</family>
                  <pointsize>11</pointsize>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="focusPolicy">
@@ -387,8 +420,8 @@
                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'SimSun';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
@@ -399,6 +432,9 @@ p, li { white-space: pre-wrap; }
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
                </property>
                <property name="title">
                 <string/>
@@ -431,9 +467,19 @@ p, li { white-space: pre-wrap; }
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>70</width>
+                    <height>0</height>
+                   </size>
+                  </property>
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <family>Microsoft YaHei UI</family>
+                    <pointsize>11</pointsize>
+                    <weight>50</weight>
+                    <italic>false</italic>
+                    <bold>false</bold>
                    </font>
                   </property>
                   <property name="text">
@@ -465,9 +511,19 @@ p, li { white-space: pre-wrap; }
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>70</width>
+                    <height>0</height>
+                   </size>
+                  </property>
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <family>Microsoft YaHei UI</family>
+                    <pointsize>11</pointsize>
+                    <weight>50</weight>
+                    <italic>false</italic>
+                    <bold>false</bold>
                    </font>
                   </property>
                   <property name="text">
@@ -497,7 +553,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1178</width>
+     <width>1276</width>
      <height>26</height>
     </rect>
    </property>
