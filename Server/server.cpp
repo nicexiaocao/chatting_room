@@ -71,9 +71,6 @@ void Server::socketDisconnected()
     QTcpSocket* client = qobject_cast<QTcpSocket*>(QObject::sender());
     QString socketIpAddress = client->peerAddress().toString();
     int port = client->peerPort();
-    QString name=QString(client->readAll());
-    QString message="<font color=\"Purple\">" + name.toUtf8() + " has left the chat room.</font>";
-    sendMessageToClients(message);
     qDebug() << "Socket disconnected from " + socketIpAddress + ":" + QString::number(port);
 }
 
