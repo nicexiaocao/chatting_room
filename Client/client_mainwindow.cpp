@@ -4,53 +4,74 @@
 #include <QTextBlock>
 
 extern login* dlg;
-
 Client_MainWindow::Client_MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::Client_MainWindow)
 {
+
 	ui->setupUi(this);
 
+	//窗口之间传递
+	connect(dlg, &login::sendData, this, &Client_MainWindow::receiveData);
+
+	//登录窗口槽函数解绑
+	disconnect(dlg->tcpClient, &QTcpSocket::readyRead, dlg, &login::onSocketReadyRead);
+
+	
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon); //设置工具栏显示文字和图标
+	
+	id = dlg->get_id();
+	password = dlg->get_password();
 
-	connectedToHost = false;  // 初始化连接状态
-	ui->actConnect->setEnabled(false); //进入时已经连接成功
-
+	//password = "123456";
+	//id = "xiaocao";
+	ui->editName->setText(id);
 	
 	ui->send_text->setFocusPolicy(Qt::ClickFocus); //使能按键响应
 	ui->send_text->setFocus();
 	ui->send_text->installEventFilter(this);
 
-	dlg->tcpClient->disconnectFromHost(); //断开登录窗口的连接
-	tcpClient = new QTcpSocket(this); //创建socket变量
-	tcpClient->connectToHost(serverIp, serverPort);
-	
+	//设置提示音
+	QString path = QDir::currentPath() + "/sound1.wav";
+	noticeSound = new QSound (path.toUtf8());
+
+	tcpClient = dlg->tcpClient;
+
+	//tcpClient = new QTcpSocket(this); //创建socket变量
+	//tcpClient->connectToHost(serverIp, serverPort);
+
+	ui->actConnect->setEnabled(false); //进入时已经连接成功，设为不能触发
+
 	LabSocketState = new QLabel("Socket状态：");//状态栏标签
 	LabSocketState->setMinimumWidth(250);
+	LabSocketState->setText("scoket状态：ConnectedState"); //进入时已经成功
 	ui->statusbar->addWidget(LabSocketState);
 
 
-	// 建立信号和槽之间的联系，省略好像不起效果，难顶
+
+	//按钮信号和槽绑定, 会自动识别，不注释的话需要声明qt::uniqueconnection，否则会触发两次槽函数
+	//connect(ui->actConnect, &QAction::triggered, this, &Client_MainWindow::on_actConnect_triggered);
+	//connect(ui->actDisconnect, &QAction::triggered, this, &Client_MainWindow::on_actDisconnect_triggered);
+	//connect(ui->btnSend, &QAbstractButton::clicked, this, &Client_MainWindow::on_btnSend_clicked);
+	//connect(ui->btnClear, &QAbstractButton::clicked, this, &Client_MainWindow::on_btnClear_clicked);
+	//connect(ui->btnBeep, &QAbstractButton::clicked, this, &Client_MainWindow::on_btnBeep_clicked);
+
+	//TCP连接状态
 	connect(tcpClient, &QTcpSocket::connected, this, &Client_MainWindow::onConnected);
 	connect(tcpClient, &QTcpSocket::disconnected, this, &Client_MainWindow::onDisconnected);
-
-	connect(tcpClient, &QTcpSocket::stateChanged,this, &Client_MainWindow::onSocketStateChange);
+	connect(tcpClient, &QTcpSocket::stateChanged, this, &Client_MainWindow::onSocketStateChange);
 	connect(tcpClient, &QTcpSocket::readyRead, this, &Client_MainWindow::onSocketReadyRead);
 
-	connect(ui->actConnect, &QAction::triggered, this, &Client_MainWindow::on_actConnect_triggered);
-	connect(ui->actDisconnect, &QAction::triggered, this, &Client_MainWindow::on_actDisconnect_triggered);
-
-	connect(ui->btnSend, &QAbstractButton::clicked, this, &Client_MainWindow::on_btnSend_clicked);
-	connect(ui->btnClear, &QAbstractButton::clicked, this, &Client_MainWindow::on_btnClear_clicked);
-
+	//显示界面设置
 	connect(ui->display_message, &QTextEdit::textChanged, this, &Client_MainWindow::movetoEnd);
-	connect(dlg, &login::sendData, this, &Client_MainWindow::receiveData);
+	
 }
 
 
 Client_MainWindow::~Client_MainWindow()
 {
-    delete ui;
-	
+	tcpClient->write(SEND + id.toUtf8() + ":left");
+	tcpClient->disconnectFromHost();
+	delete ui;
 }
 
 void Client_MainWindow::onConnected()
@@ -77,16 +98,16 @@ void Client_MainWindow::onSocketReadyRead()
 {
 	// readyRead()信号槽函数 读取服务器信息
 	QString id = ui->editName->text();
-	QString Message_received = tcpClient->readAll();
-	QStringList Message_list; 
-
+	QString Message_received;
+	QStringList Message_list;
 	while (tcpClient->bytesAvailable())
 	{
 		Message_received = tcpClient->readAll();
-		qDebug() << Message_received;
 		Message_list = Message_received.split(":");
-		qDebug() << Message_list[0];
-		
+
+		//qDebug() << Message_received;
+		qDebug() << Message_list;
+
 		if (Message_list[0] == id)
 		{
 			ui->display_message->setAlignment(Qt::AlignRight);
@@ -96,6 +117,10 @@ void Client_MainWindow::onSocketReadyRead()
 		{
 			ui->display_message->setAlignment(Qt::AlignLeft);
 			printMessage(Message_received);
+			if (beep)
+			{
+				noticeSound->play();
+			}
 		}
 	}
 }
@@ -106,6 +131,7 @@ void Client_MainWindow::on_actConnect_triggered()
 	QString id = ui->editName->text();
 	tcpClient->connectToHost(serverIp, serverPort);
 	QString LogMessage = LOG + id + ":" + password;
+	qDebug() << "主窗口:" + LogMessage;
 	tcpClient->write(LogMessage.toUtf8());
 }
 
@@ -115,7 +141,7 @@ void Client_MainWindow::on_actDisconnect_triggered()
 	QString id = ui->editName->text();
 	if (tcpClient->state() == QAbstractSocket::ConnectedState)
 	{
-		tcpClient->write(id.toUtf8()); // 直接发送用户名字作为下线指令
+		tcpClient->write(SEND + id.toUtf8() + ":left"); // 直接发送用户名字作为下线指令
 		tcpClient->disconnectFromHost();
 	}
 		
@@ -130,16 +156,19 @@ void Client_MainWindow::on_btnSend_clicked()
 	QTextDocument *doc = ui->send_text->document(); // 文本对象
 	int cnt = doc->blockCount(); // 回车符是一个block
 
-
+	QString message_send = "";
 	for (int i = 0; i < cnt; i++)
 	{
 		//服务器发消息
 		QTextBlock textline = doc->findBlockByNumber(i);
-		QString message_send = textline.text();
-		if (message_send != "")
-			tcpClient->write(SEND + id.toUtf8() + ":" + message_send.toUtf8() + "\n");
+		if (textline.text() != "")
+			message_send = message_send.append(textline.text()+ "\n");
 	}
-
+	if (message_send != "")
+	{
+		tcpClient->write(SEND + id.toUtf8() + ":" + message_send.toUtf8());
+	}
+	
 	ui->send_text->clear();
 	ui->send_text->setFocus();
 }
@@ -192,7 +221,12 @@ void Client_MainWindow::receiveData(QString data, QString data2)
 {
 	ui->editName->setText(data);
 	this->password = data2;
-	qDebug() << password;
+}
+
+void Client_MainWindow::on_btnBeep_clicked()
+{
+	beep = !beep;
+
 }
 
 

@@ -62,6 +62,8 @@ public:
     QPushButton *btnClear;
     QSpacerItem *horizontalSpacer_3;
     QPushButton *btnSend;
+    QSpacerItem *horizontalSpacer_4;
+    QPushButton *btnBeep;
     QMenuBar *menubar;
     QMenu *menu_2;
     QMenu *menu;
@@ -72,7 +74,7 @@ public:
     {
         if (Client_MainWindow->objectName().isEmpty())
             Client_MainWindow->setObjectName(QString::fromUtf8("Client_MainWindow"));
-        Client_MainWindow->resize(982, 772);
+        Client_MainWindow->resize(982, 788);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -143,6 +145,7 @@ public:
         editName->setSizePolicy(sizePolicy1);
         editName->setFont(font1);
         editName->setFocusPolicy(Qt::ClickFocus);
+        editName->setReadOnly(true);
 
         horizontalLayout->addWidget(editName);
 
@@ -273,6 +276,24 @@ public:
 
         horizontalLayout_2->addWidget(btnSend);
 
+        horizontalSpacer_4 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_4);
+
+        btnBeep = new QPushButton(buttons);
+        btnBeep->setObjectName(QString::fromUtf8("btnBeep"));
+        sizePolicy2.setHeightForWidth(btnBeep->sizePolicy().hasHeightForWidth());
+        btnBeep->setSizePolicy(sizePolicy2);
+        btnBeep->setMinimumSize(QSize(0, 0));
+        btnBeep->setMaximumSize(QSize(28, 28));
+        btnBeep->setStyleSheet(QString::fromUtf8("border-image:url(:/icon/client_rsc/\351\235\231\351\237\263.png)"));
+        btnBeep->setCheckable(true);
+        btnBeep->setChecked(true);
+        btnBeep->setAutoRepeat(false);
+        btnBeep->setAutoExclusive(true);
+
+        horizontalLayout_2->addWidget(btnBeep);
+
 
         verticalLayout->addWidget(buttons);
 
@@ -332,7 +353,7 @@ public:
         actDisconnect->setToolTip(QCoreApplication::translate("Client_MainWindow", "\346\226\255\345\274\200TCP\351\223\276\346\216\245", nullptr));
 #endif // QT_CONFIG(tooltip)
         label->setText(QCoreApplication::translate("Client_MainWindow", "\346\230\265\347\247\260\357\274\232", nullptr));
-        editName->setText(QCoreApplication::translate("Client_MainWindow", "xiaocao", nullptr));
+        editName->setText(QCoreApplication::translate("Client_MainWindow", "xiaoliang", nullptr));
         label_onlie->setText(QCoreApplication::translate("Client_MainWindow", "\345\234\250\347\272\277\344\272\272\346\225\260:", nullptr));
         send_text->setHtml(QCoreApplication::translate("Client_MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -345,6 +366,7 @@ public:
 #if QT_CONFIG(shortcut)
         btnSend->setShortcut(QCoreApplication::translate("Client_MainWindow", "Return", nullptr));
 #endif // QT_CONFIG(shortcut)
+        btnBeep->setText(QString());
         menu_2->setTitle(QCoreApplication::translate("Client_MainWindow", "\345\216\206\345\217\262\346\266\210\346\201\257", nullptr));
         menu->setTitle(QCoreApplication::translate("Client_MainWindow", "\346\277\200\346\203\205\350\201\212\345\244\251", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("Client_MainWindow", "toolBar", nullptr));

@@ -6,5 +6,7 @@
         <file>client_rsc/background.png</file>
         <file>client_rsc/login.png</file>
         <file>client_rsc/login_icon.png</file>
+        <file>client_rsc/静音.png</file>
+        <file>client_rsc/声音 copy@1x.png</file>
     </qresource>
 </RCC>

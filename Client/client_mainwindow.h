@@ -7,6 +7,10 @@
 #include <qlabel.h>
 #include <QTextCursor>
 #include <QKeyEvent>
+#include <QtMultimedia/qsoundeffect.h>
+#include <QtMultimedia/qsound.h>
+#include <QUrl>
+#include <QDir>
 #include <qframe.h>
 #include "login.h"
 
@@ -22,7 +26,7 @@ class Client_MainWindow : public QMainWindow
 
 public:
     Client_MainWindow(QWidget *parent = nullptr);
-    ~Client_MainWindow();
+	~Client_MainWindow();
 	QTcpSocket *tcpClient;
 
 protected:
@@ -32,10 +36,13 @@ protected:
 private:
 	Ui::Client_MainWindow* ui;
 	QLabel  *LabSocketState;  //状态栏显示标签
+	QSound *noticeSound;
+	QString id;
 	QString password;
-	bool    connectedToHost;
 	void printMessage(QString message);
+	bool	beep = true;
 
+private slots:
 	// 自定义槽函数
 	void    onConnected();  // 连接响应函数
 	void    onDisconnected(); //断开连接响应函数
@@ -45,10 +52,11 @@ private:
 	void on_actConnect_triggered(); //连接
 	void on_actDisconnect_triggered(); //断开连接
 
-	void on_btnSend_clicked(); //点击发送
-	void on_btnClear_clicked(); //点击清除
-	void movetoEnd();
-	void receiveData(QString data, QString data2);//接收登录窗口数据
+	void	on_btnSend_clicked(); //点击发送
+	void	on_btnClear_clicked(); //点击清除
+	void	movetoEnd();
+	void	receiveData(QString data, QString data2); //接收登录窗口数据
+	void	on_btnBeep_clicked();
 
 
 };

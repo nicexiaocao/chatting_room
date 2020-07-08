@@ -67,7 +67,7 @@
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <QtInstall>msvc2017</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtModules>core;gui;multimedia;network;widgets</QtModules>
     <QtQMLDebugEnable>false</QtQMLDebugEnable>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -323,20 +323,18 @@ echo #include "stdafx.h"&gt;&gt;stdafx.h.cpp</Command>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <None Include="client_rsc\background.png" />
-    <None Include="client_rsc\chat.png" />
     <QtRcc Include="client_rsc.qrc">
     </QtRcc>
-    <None Include="client_rsc\connect.png" />
-    <None Include="client_rsc\disconnect.png" />
-    <None Include="client_rsc\login.png" />
-    <None Include="client_rsc\login_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="项目需求.txt" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Client.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="sound1.wav" />
+    <Media Include="sound2.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -101,27 +101,9 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <None Include="client_rsc\background.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="client_rsc\chat.png">
-      <Filter>Resource Files</Filter>
-    </None>
     <QtRcc Include="client_rsc.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <None Include="client_rsc\connect.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="client_rsc\disconnect.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="client_rsc\login.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="client_rsc\login_icon.png">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="项目需求.txt">
@@ -132,5 +114,13 @@
     <Text Include="Client.txt">
       <Filter>Other Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="sound2.wav">
+      <Filter>Other Files</Filter>
+    </Media>
+    <Media Include="sound1.wav">
+      <Filter>Other Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

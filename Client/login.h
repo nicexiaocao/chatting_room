@@ -37,8 +37,10 @@ public:
 	login(QWidget *parent = Q_NULLPTR);
 	~login();
 	QTcpSocket *tcpClient; // 让其他窗口可以访问
+	
+
 signals:
-	void sendData(QString, QString);
+	void sendData(QString, QString); // 变量传递
 
 
 private:
@@ -46,25 +48,34 @@ private:
 	bool	m_moving = false;
 	QPoint	m_lastPos;
 	QString	m_user = "user";
+	QString	password;
 	
 	QString	ip = serverIp; //定义ip和端口号
 	qint16	const port = serverPort;
 
 	void    readSettings(); //读取设置,从注册表
 	void    writeSettings();//写入设置，从注册表
+	
 
 protected:
 	bool	eventFilter(QObject * target, QEvent * event);
+	
+
 private slots:
 	void	on_btnEnter_clicked();
 	void	on_btnRegister_clicked();
 	void	on_btnCancel_clicked();
-	void	onSocketReadyRead();//读取socket传入的数据
 
 	void	mousePressEvent(QMouseEvent * event);//鼠标按下事件
 	void	mouseMoveEvent(QMouseEvent * event);//鼠标移动事件
 	void	mouseReleaseEvent(QMouseEvent * event);//鼠标释放事件
+	
+public slots:
+	void	onSocketReadyRead();//读取socket传入的数据,主窗口会用到，所以声明public类型
 
+public:
+	QString get_id() { return m_user; }
+	QString get_password() { return password; }
 
 	
 	

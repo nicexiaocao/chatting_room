@@ -11,11 +11,12 @@ login::login(QWidget *parent): QDialog(parent), ui(new Ui::login)
 	ui->passEdit->setEchoMode(QLineEdit::Password);
 
 	tcpClient = new QTcpSocket; // 建立一个socket连接，在login类中生效
-
+	tcpClient->connectToHost(serverIp, serverPort);
 	
 	readSettings(); //读取存储的用户名
 
 	//连接信号和槽
+
 	connect(tcpClient, &QTcpSocket::readyRead, this, &login::onSocketReadyRead);
 
 	connect(ui->BtnLogin, &QPushButton::clicked, this, &login::on_btnEnter_clicked);
@@ -69,10 +70,12 @@ void login::onSocketReadyRead()
 {	
 	//消息处理，主要功能实现函数
 	QString Message_received;
-
+	qDebug() << "登录窗口" << tcpClient->bytesAvailable();
+	
 	while (tcpClient->bytesAvailable())
 	{
 		Message_received = tcpClient->readAll();
+		qDebug() << Message_received;
 		QStringList  Message_list = Message_received.split(":");
 		QString flag = Message_list[0];
 		// qDebug() << Message_received;//打印消息
@@ -113,7 +116,7 @@ void login::onSocketReadyRead()
 			//登录成功，写注册表，跳转主窗口
 			this->m_user = ui->idEdit->text();
 			this->writeSettings();
-			QString password = ui->passEdit->text();
+			password = ui->passEdit->text();
 			emit sendData(m_user, password);
 			this->accept();
 		}
@@ -174,19 +177,17 @@ bool login::eventFilter(QObject *target, QEvent *event)
 
 	return QDialog::eventFilter(target, event);  //其他目标默认处理
 }
+
 void login::readSettings()
 {
 	//读取存储的用户名和密码, 密码是经过加密的
 	QString organization = "Chatting_Roomm-Qt";//用于注册表，
-	QString appName = "ChattingRoom"; //HKEY_CURRENT_USER/Software/WWB-Qt/amp6_5
+	QString appName = "ChattingRoom"; //HKEY_CURRENT_USER/Software/Chatting_Roomm-Qt/ChattingRoom
 
 	QSettings   settings(organization, appName);//创建
 
-	bool saved = settings.value("saved", false).toBool();//读取 saved键的值
 	m_user = settings.value("Username", "user").toString();//读取 Username 键的值，缺省为“user”
-
-	if (saved)
-		ui->idEdit->setText(m_user);
+	ui->idEdit->setText(m_user);
 }
 
 void login::writeSettings()
@@ -194,3 +195,4 @@ void login::writeSettings()
 	QSettings   settings("Chatting_Roomm-Qt", "ChattingRoom"); //注册表键组
 	settings.setValue("Username", m_user); //用户名
 }
+
