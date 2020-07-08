@@ -118,6 +118,7 @@ void login::onSocketReadyRead()
 			this->writeSettings();
 			password = ui->passEdit->text();
 			emit sendData(m_user, password);
+			tcpClient->write(SEND + m_user.toUtf8() + ":" + "加入聊天");
 			this->accept();
 		}
 	}

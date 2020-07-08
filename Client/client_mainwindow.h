@@ -41,6 +41,7 @@ private:
 	QString password;
 	void printMessage(QString message);
 	bool	beep = true;
+	void	closeEvent(QCloseEvent *event);
 
 private slots:
 	// 自定义槽函数

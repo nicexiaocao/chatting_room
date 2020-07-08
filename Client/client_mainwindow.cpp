@@ -9,6 +9,7 @@ Client_MainWindow::Client_MainWindow(QWidget *parent)
 {
 
 	ui->setupUi(this);
+	this->setAttribute(Qt::WA_DeleteOnClose); //关闭时删除，会调用析构函数
 
 	//窗口之间传递
 	connect(dlg, &login::sendData, this, &Client_MainWindow::receiveData);
@@ -70,7 +71,6 @@ Client_MainWindow::Client_MainWindow(QWidget *parent)
 Client_MainWindow::~Client_MainWindow()
 {
 	tcpClient->write(SEND + id.toUtf8() + ":left");
-	tcpClient->disconnectFromHost();
 	delete ui;
 }
 
@@ -79,7 +79,7 @@ void Client_MainWindow::onConnected()
 	//connected()信号槽函数
 	QString id = ui->editName->text();
 	ui->display_message->setAlignment(Qt::AlignCenter);
-	printMessage(id + "成功连接服务器");
+	
 	ui->actConnect->setEnabled(false);
 	ui->actDisconnect->setEnabled(true);
 }
@@ -104,14 +104,16 @@ void Client_MainWindow::onSocketReadyRead()
 	{
 		Message_received = tcpClient->readAll();
 		Message_list = Message_received.split(":");
-
 		//qDebug() << Message_received;
-		qDebug() << Message_list;
 
 		if (Message_list[0] == id)
 		{
 			ui->display_message->setAlignment(Qt::AlignRight);
 			printMessage(Message_list[1]);
+		}
+		else if ((Message_list[0] == SUCCEEDLOGIN) | (Message_list[0] == LOGINFAIL))
+		{
+			break;
 		}
 		else
 		{
@@ -130,9 +132,10 @@ void Client_MainWindow::on_actConnect_triggered()
 	//连接到服务器
 	QString id = ui->editName->text();
 	tcpClient->connectToHost(serverIp, serverPort);
+	tcpClient->waitForConnected();
 	QString LogMessage = LOG + id + ":" + password;
-	qDebug() << "主窗口:" + LogMessage;
-	tcpClient->write(LogMessage.toUtf8());
+	//qDebug() << "主窗口:" + LogMessage;
+	tcpClient->write(SEND + id.toUtf8() + ":" + "加入聊天");
 }
 
 void Client_MainWindow::on_actDisconnect_triggered()
@@ -141,7 +144,7 @@ void Client_MainWindow::on_actDisconnect_triggered()
 	QString id = ui->editName->text();
 	if (tcpClient->state() == QAbstractSocket::ConnectedState)
 	{
-		tcpClient->write(SEND + id.toUtf8() + ":left"); // 直接发送用户名字作为下线指令
+		tcpClient->write(SEND + id.toUtf8() + ":离开聊天"); // 直接发送用户名字作为下线指令
 		tcpClient->disconnectFromHost();
 	}
 		
@@ -258,4 +261,10 @@ bool Client_MainWindow::eventFilter(QObject *target, QEvent *event)
 void Client_MainWindow::printMessage(QString message)
 {
 	ui->display_message->append(message);
+}
+
+void Client_MainWindow::closeEvent(QCloseEvent * event)
+{
+	tcpClient->write(SEND + id.toUtf8() + ":离开聊天");
+	QMainWindow::closeEvent(event);
 }
