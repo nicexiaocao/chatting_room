@@ -39,16 +39,13 @@ QGroupBox{border:none}
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QGroupBox" name="groupBox">
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
+     <widget class="QWidget" name="widget" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>20</number>
+       </property>
+       <item>
         <widget class="QLabel" name="label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="font">
           <font>
            <family>Microsoft YaHei UI</family>
@@ -66,7 +63,7 @@ QGroupBox{border:none}
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item>
         <widget class="QLineEdit" name="editName">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -94,7 +91,7 @@ QGroupBox{border:none}
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
+       <item>
         <widget class="QLabel" name="label_onlie">
          <property name="font">
           <font>
@@ -110,7 +107,7 @@ QGroupBox{border:none}
          </property>
         </widget>
        </item>
-       <item row="0" column="3">
+       <item>
         <widget class="QLineEdit" name="lineEdit">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -134,6 +131,19 @@ QGroupBox{border:none}
           <bool>true</bool>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
@@ -335,6 +345,22 @@ p, li { white-space: pre-wrap; }
                  <enum>QLayout::SetDefaultConstraint</enum>
                 </property>
                 <item>
+                 <spacer name="horizontalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Expanding</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>100</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
                  <widget class="QPushButton" name="btnClear">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -361,6 +387,22 @@ p, li { white-space: pre-wrap; }
                    <string>清除</string>
                   </property>
                  </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                 <item>
                  <widget class="QPushButton" name="btnSend">
@@ -394,6 +436,22 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
+                 <spacer name="horizontalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
                  <widget class="QPushButton" name="btnBeep">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -414,7 +472,7 @@ p, li { white-space: pre-wrap; }
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">border-image:url(:/icon/client_rsc/client.png)</string>
+                   <string notr="true">border-image:url(:/icon/client_rsc/静音.png)</string>
                   </property>
                   <property name="text">
                    <string/>
